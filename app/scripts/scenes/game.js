@@ -130,21 +130,21 @@ export default class Game extends Phaser.Scene {
       this.player.body.anims.play('Right', true);
     }
     if (this.cursors.space.isDown && !this.player.shooting) {
-      // this.player.body.anims.play('Shoot', true);
-      // this.player.shooting = true;
-      // this.player.shooting_t = 0;
+      this.player.body.anims.play('Shoot', true);
+      this.player.shooting = true;
+      this.player.shooting_t = 0;
+      this.player.shoot();
     }
 
     if (this.player.shooting) {
       this.player.shooting_t++;
-      if (this.player.shooting_t > 25) {
+      if (this.player.shooting_t > 35) {
         this.player.shooting = false;
+        this.player.resetShoot();
       }
       this.player.body.anims.play('Shoot', true);
     }
 
-    this.player.body.setAngle(0);
-    this.player.body.body.angularVelocity = 0;
-    this.player.body.body.angularSpeed    = 0;
+    this.player.update();
   }
 }

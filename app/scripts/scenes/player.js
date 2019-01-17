@@ -22,11 +22,35 @@ export default function Player(x, y, id, parent) {
 
   this.body.setCollisionCategory(cata);
   this.foot.setCollisionCategory(catb);
-  this.body.setCollidesWith([1, cata, catb]);
-  this.foot.setCollidesWith([cata, catb]);
+  this.body.setCollidesWith([1, cata]);
+
+  this.foot_collider = [2, catb];
+
+  this.foot.setCollidesWith(0);
+
+  this.foot.setVisible(false);
+
+  this.update = function() {
+    this.body.setAngle(0);
+    this.body.body.angularVelocity = 0;
+    this.body.body.angularSpeed    = 0;
+
+    if (!this.shooting) {
+      this.foot.setAngle(90);
+      this.foot.body.angularVelocity = 0;
+      this.foot.body.angularSpeed = 0;
+      this.foot.body.position.x = this.body.body.position.x;
+    }
+  };
 
   this.shoot = function() {
+    this.foot.setVisible(true);
+    this.foot.setCollidesWith(this.foot_collider);
+  };
 
+  this.resetShoot = function() {
+    this.foot.setVisible(false);
+    this.foot.setCollidesWith(0);
   };
 }
 
