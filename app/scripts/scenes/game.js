@@ -1,5 +1,5 @@
 import {screen_w, screen_h} from '@/config';
-import Player from '@/scenes/player';
+import {default as Player} from '@/scenes/player';
 // import screen_h from '@/config';
 
 export default class Game extends Phaser.Scene {
@@ -96,8 +96,6 @@ export default class Game extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.matter.world.setBounds(0, 0, screen_w, screen_h);
-
-
   }
 
   /**
@@ -146,5 +144,16 @@ export default class Game extends Phaser.Scene {
     }
 
     this.player.update();
+
+
+    if (this.cursors.shift.isDown) {
+      resetBall(this.ball);
+    }
   }
+}
+
+function resetBall(ball) {
+  ball.setPosition(screen_w / 2, 100);
+  ball.setVelocity(0, 0);
+  ball.setCollisionCategory(2);
 }

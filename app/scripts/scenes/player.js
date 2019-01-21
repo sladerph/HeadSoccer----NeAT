@@ -29,6 +29,8 @@ export default function Player(x, y, id, parent) {
   this.foot.setCollidesWith(0);
 
   this.foot.setVisible(false);
+  // this.foot.setMass(10);
+  this.foot.setBounce(2);
 
   this.update = function() {
     this.body.setAngle(0);
@@ -40,21 +42,32 @@ export default function Player(x, y, id, parent) {
       this.foot.body.angularVelocity = 0;
       this.foot.body.angularSpeed = 0;
       this.foot.body.position.x = this.body.body.position.x;
+    } else {
+      if (this.foot.body.position.y <= this.body.body.position.y) {
+        this.foot.body.position.y = this.body.body.position.y;
+      }
+
+      this.foot.setAngle(90);
     }
   };
 
   this.shoot = function() {
     this.foot.setVisible(true);
-    this.foot.setCollidesWith(this.foot_collider);
+    this.foot.setCollidesWith(2);
+    // this.foot.setCollidesWith(this.foot_collider);
+    this.foot.body.position.y = this.body.body.position.y + 100;
+    this.foot.body.position.x = this.body.body.position.x;
+    this.foot.setVelocity(50, 0);
+    // window['console'].log(this.foot.body.position);
   };
 
   this.resetShoot = function() {
     this.foot.setVisible(false);
-    this.foot.setCollidesWith(0);
+    this.foot.setCollidesWith([0]);
   };
 }
 
-// function resetBall(ball) {
+// export function resetBall(ball) {
 //   ball.setCircle();
 //   ball.setPosition(screen_w / 2, 100);
 //   ball.setVelocity(0, 0);
