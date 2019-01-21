@@ -11,9 +11,10 @@ export default function Player(x, y, id, parent) {
   this.body.setFriction(1);
   this.body.body.label = 'Player' + id.toString();
 
-  this.leg_len = 120;
+  this.leg_len = 150;
 
   this.foot = parent.matter.add.sprite(x, y, 'foot');
+  this.foot.setCircle();
 
   parent.matter.add.constraint(this.body, this.foot, this.leg_len, 0);
 
@@ -22,7 +23,7 @@ export default function Player(x, y, id, parent) {
 
   this.body.setCollisionCategory(cata);
   this.foot.setCollisionCategory(catb);
-  this.body.setCollidesWith([1, cata]);
+  this.body.setCollidesWith([1, 2, cata]);
 
   this.foot_collider = [2, catb];
 
@@ -49,21 +50,24 @@ export default function Player(x, y, id, parent) {
 
       this.foot.setAngle(90);
     }
+
+    // window['console'].log(this.foot.body.collisionFilter.category);
   };
 
   this.shoot = function() {
+    // window['console'].log();
     this.foot.setVisible(true);
-    this.foot.setCollidesWith(2);
-    // this.foot.setCollidesWith(this.foot_collider);
+    this.foot.setCollisionCategory(2);
+    this.foot.setCollidesWith(this.foot_collider);
     this.foot.body.position.y = this.body.body.position.y + 100;
     this.foot.body.position.x = this.body.body.position.x;
     this.foot.setVelocity(50, 0);
-    // window['console'].log(this.foot.body.position);
   };
 
   this.resetShoot = function() {
     this.foot.setVisible(false);
     this.foot.setCollidesWith([0]);
+    this.foot.setCollisionCategory(4);
   };
 }
 
