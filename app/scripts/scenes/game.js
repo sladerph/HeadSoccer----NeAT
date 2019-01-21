@@ -51,6 +51,7 @@ export default class Game extends Phaser.Scene {
     this.ball.setBounce(0.7);
     this.ball.body.label = 'Ball';
     this.ball.setCollisionCategory(2);
+    this.ball.setCollidesWith([1, 2, 3, 4]);
     // ball.setGravityY(500);
 
     this.anims.create({
@@ -131,7 +132,7 @@ export default class Game extends Phaser.Scene {
       this.player.body.anims.play('Shoot', true);
       this.player.shooting = true;
       this.player.shooting_t = 0;
-      this.player.shoot();
+      this.player.shoot(this.ball);
     }
 
     if (this.player.shooting) {

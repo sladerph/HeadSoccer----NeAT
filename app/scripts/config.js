@@ -49,6 +49,7 @@ export const type = Phaser.AUTO;
  */
 export const physics = {
   matter: {
+    debug: true,
   },
   default: 'matter'
 };

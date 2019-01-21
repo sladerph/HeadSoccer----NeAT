@@ -16,18 +16,20 @@ export default function Player(x, y, id, parent) {
   this.foot = parent.matter.add.sprite(x, y, 'foot');
   this.foot.setCircle();
 
-  parent.matter.add.constraint(this.body, this.foot, this.leg_len, 0);
+  parent.matter.add.constraint(this.body, this.foot, this.leg_len, 1);
 
   const cata = parent.matter.world.nextCategory();
   const catb = parent.matter.world.nextCategory();
 
   this.body.setCollisionCategory(cata);
   this.foot.setCollisionCategory(catb);
+
   this.body.setCollidesWith([1, 2, cata]);
 
-  this.foot_collider = [2, catb];
+  this.foot_collider = [2];
 
-  this.foot.setCollidesWith(0);
+  this.foot.setCollidesWith(this.foot_collider);
+  // this.foot.setCollidesWith(0);
 
   this.foot.setVisible(false);
   // this.foot.setMass(10);
@@ -54,20 +56,21 @@ export default function Player(x, y, id, parent) {
     // window['console'].log(this.foot.body.collisionFilter.category);
   };
 
-  this.shoot = function() {
-    // window['console'].log();
+  this.shoot = function(ball) {
+    window['console'].log(this.foot.body.collisionFilter);
     this.foot.setVisible(true);
-    this.foot.setCollisionCategory(2);
     this.foot.setCollidesWith(this.foot_collider);
-    this.foot.body.position.y = this.body.body.position.y + 100;
+    this.foot.body.position.y = this.body.body.position.y + this.leg_len;
     this.foot.body.position.x = this.body.body.position.x;
     this.foot.setVelocity(50, 0);
+    window['console'].log(this.foot.body.collisionFilter);
+    window['console'].log(ball.body.collisionFilter);
   };
 
   this.resetShoot = function() {
     this.foot.setVisible(false);
     this.foot.setCollidesWith([0]);
-    this.foot.setCollisionCategory(4);
+    // this.foot.setCollisionCategory(4);
   };
 }
 
