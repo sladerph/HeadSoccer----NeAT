@@ -57,14 +57,16 @@ export default function Player(x, y, id, parent) {
   };
 
   this.shoot = function(ball) {
-    window['console'].log(this.foot.body.collisionFilter);
+    // window['console'].log(this.foot.body.collisionFilter);
     this.foot.setVisible(true);
     this.foot.setCollidesWith(this.foot_collider);
     this.foot.body.position.y = this.body.body.position.y + this.leg_len;
     this.foot.body.position.x = this.body.body.position.x;
     this.foot.setVelocity(50, 0);
-    window['console'].log(this.foot.body.collisionFilter);
-    window['console'].log(ball.body.collisionFilter);
+    // window['console'].log(this.foot.body.collisionFilter);
+    // window['console'].log(ball.body.collisionFilter);
+    window['console'].log(this.foot);
+    return ball;
   };
 
   this.resetShoot = function() {
