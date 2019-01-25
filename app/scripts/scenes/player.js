@@ -44,10 +44,13 @@ export default function Player(x, y, id, parent) {
       this.foot.setAngle(90);
       this.foot.body.angularVelocity = 0;
       this.foot.body.angularSpeed = 0;
-      this.foot.body.position.x = this.body.body.position.x;
+      this.foot.x = this.body.x;
+      // this.foot.body.position.x = this.body.body.position.x;
     } else {
-      if (this.foot.body.position.y <= this.body.body.position.y) {
-        this.foot.body.position.y = this.body.body.position.y;
+      if (this.foot.y <= this.body.y) {
+      // if (this.foot.body.position.y <= this.body.body.position.y) {
+        this.foot.y = this.body.y;
+        // this.foot.body.position.y = this.body.body.position.y;
       }
 
       this.foot.setAngle(90);
@@ -60,12 +63,16 @@ export default function Player(x, y, id, parent) {
     // window['console'].log(this.foot.body.collisionFilter);
     this.foot.setVisible(true);
     this.foot.setCollidesWith(this.foot_collider);
-    this.foot.body.position.y = this.body.body.position.y + this.leg_len;
-    this.foot.body.position.x = this.body.body.position.x;
+    this.foot.y = this.body.body.position.y + this.leg_len;
+    this.foot.x = this.body.x;
+    // this.foot.body.position.y = this.body.body.position.y + this.leg_len;
+    // this.foot.body.position.x = this.body.body.position.x;
     this.foot.setVelocity(50, 0);
     // window['console'].log(this.foot.body.collisionFilter);
     // window['console'].log(ball.body.collisionFilter);
-    window['console'].log(this.foot);
+    // window['console'].log(this.foot.x);
+    // window['console'].log(this.foot.y);
+    // window['console'].log(this.foot.getBounds());
     return ball;
   };
 

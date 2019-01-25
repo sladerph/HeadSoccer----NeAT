@@ -23,6 +23,8 @@ export default class Game extends Phaser.Scene {
     this.load.image('hills', '@/../hills.jpg');
     this.load.image('ball', '@/../ball.png');
     this.load.image('foot', '@/../foot.png');
+    this.load.image('goal', '@/../goal.png');
+
     this.load.json('shapes', '@/../shapes.json');
   }
 
@@ -53,6 +55,17 @@ export default class Game extends Phaser.Scene {
     this.ball.setCollisionCategory(2);
     this.ball.setCollidesWith([1, 2, 3, 4]);
     // ball.setGravityY(500);
+
+    this.add.image(screen_w - 223, screen_h - 384, 'goal').setOrigin(0, 0);
+    this.add.image(0, screen_h - 384, 'goal').setOrigin(0, 0).setFlip(true, false);
+
+    this.left_bar = this.matter.add.rectangle(0, 0, 100, 100);
+
+    window['console'].log(this.left_bar);
+
+
+
+    // this.right_goal = this.matter.add.sprite(screen_w - 338, screen_h - 500, 'goal');
 
     this.anims.create({
       key: 'Right',
@@ -150,6 +163,7 @@ export default class Game extends Phaser.Scene {
     if (this.cursors.shift.isDown) {
       resetBall(this.ball);
     }
+    // window['console'].log(this.right_goal.x, this.right_goal.y);
   }
 }
 
