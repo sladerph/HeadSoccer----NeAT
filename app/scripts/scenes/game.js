@@ -59,11 +59,21 @@ export default class Game extends Phaser.Scene {
     this.add.image(screen_w - 223, screen_h - 384, 'goal').setOrigin(0, 0);
     this.add.image(0, screen_h - 384, 'goal').setOrigin(0, 0).setFlip(true, false);
 
-    this.left_bar = this.matter.add.rectangle(0, 0, 100, 100);
+    this.left_bar = this.matter.add.rectangle(111, screen_h - 390 + 50, 223, 20);
+    Phaser.Physics.Matter.Matter.Body.setAngle(this.left_bar, 0.05);
+    this.left_bar.isStatic = true;
 
-    window['console'].log(this.left_bar);
+    this.right_bar = this.matter.add.rectangle(screen_w - 223 / 2, screen_h - 390 + 50, 223, 20);
+    Phaser.Physics.Matter.Matter.Body.setAngle(this.right_bar, -0.05);
+    this.right_bar.isStatic = true;
 
+    this.left_sensor = this.matter.add.rectangle(185 / 2, screen_h - 155, 185, 310, {isSensor: true, label: 'left_goal_sensor'});
+    this.left_sensor.ignoreGravity = true;
 
+    this.right_sensor = this.matter.add.rectangle(screen_w - 185 / 2, screen_h - 155, 185, 310, {isSensor: true, label: 'right_goal_sensor'});
+    this.right_sensor.ignoreGravity = true;
+
+    // this.matter.add.constraint(this.left_bar, this.left_sensor, 180, 1);
 
     // this.right_goal = this.matter.add.sprite(screen_w - 338, screen_h - 500, 'goal');
 
@@ -110,6 +120,26 @@ export default class Game extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.matter.world.setBounds(0, 0, screen_w, screen_h);
+
+    this.matter.world.on('collisionStart', function(event) {
+      var pairs = event.pairs;
+
+      for (var i = 0; i < pairs.length; i++) {
+        var a = pairs[i].bodyA;
+        var b = pairs[i].bodyB;
+
+        if (pairs[i].isSensor) { // Sensor Collision.
+          if (a.label == 'Ball' || b.label == 'Ball') { // The ball hit a sensor.
+            if (a.label == 'left_goal_sensor' || b.label == 'left_goal_sensor') { // There is goal for the player facing left.
+              window['console'].log('GOAL for player 2 !!!');
+            } else if (a.label == 'right_goal_sensor' || b.label == 'right_goal_sensor') { // There is goal for the player facing right.
+              window['console'].log('GOAL for player 1 !!!');
+            }
+          }
+
+        }
+      }
+    });
   }
 
   /**
