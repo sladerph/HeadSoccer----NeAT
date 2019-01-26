@@ -121,7 +121,7 @@ export default class Game extends Phaser.Scene {
 
     this.matter.world.setBounds(0, 0, screen_w, screen_h);
 
-    this.matter.world.on('collisionStart', function(event) {
+    this.matter.world.on('collisionstart', function(event) {
       var pairs = event.pairs;
 
       for (var i = 0; i < pairs.length; i++) {
@@ -129,11 +129,11 @@ export default class Game extends Phaser.Scene {
         var b = pairs[i].bodyB;
 
         if (pairs[i].isSensor) { // Sensor Collision.
-          if (a.label == 'Ball' || b.label == 'Ball') { // The ball hit a sensor.
-            if (a.label == 'left_goal_sensor' || b.label == 'left_goal_sensor') { // There is goal for the player facing left.
-              window['console'].log('GOAL for player 2 !!!');
-            } else if (a.label == 'right_goal_sensor' || b.label == 'right_goal_sensor') { // There is goal for the player facing right.
-              window['console'].log('GOAL for player 1 !!!');
+          if (a.label == 'Ball' || b.label == 'Ball') {
+            if (a.label == 'right_goal_sensor' || b.label == 'right_goal_sensor') {
+              window['console'].log('Goal for player 1 !');
+            } else if (a.label == 'left_goal_sensor' || b.label == 'left_goal_sensor') {
+              window['console'].log('Goal for player 2 !');
             }
           }
 
