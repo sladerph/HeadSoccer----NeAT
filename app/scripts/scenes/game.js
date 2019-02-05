@@ -44,7 +44,8 @@ export default class Game extends Phaser.Scene {
     // player.setBounce(0);
     // player.setFriction(1);
     // player.setGravityY(300);
-    this.player = new Player(screen_w / 2 - 500, 400, 1, this);
+    this.player   = new Player(screen_w / 2 - 500, 600, 1, this);
+    this.player_2 = new Player(screen_w / 2 + 500, 600, 2, this);
     // p = new Player(screen_w / 2 + 500, 400, 2, this);
 
     this.ball.setCircle();
@@ -151,7 +152,7 @@ export default class Game extends Phaser.Scene {
    *  @param {number} dt Time elapsed since last update.
    */
   update(/* t, dt */) {
-    this.player.body.setVelocityX(0);
+    updatePlayers(this.player, this.player_2);
 
     if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-5);
@@ -187,18 +188,26 @@ export default class Game extends Phaser.Scene {
       this.player.body.anims.play('Shoot', true);
     }
 
-    this.player.update();
-
-
     if (this.cursors.shift.isDown) {
-      resetBall(this.ball);
+      resetBall(this.ball, this.player, this.player_2);
     }
     // window['console'].log(this.right_goal.x, this.right_goal.y);
   }
 }
 
-function resetBall(ball) {
+function updatePlayers(a, b) {
+  a.body.setVelocityX(0);
+  b.body.setVelocityX(0);
+
+  a.update();
+  b.update();
+}
+
+function resetBall(ball, player_a, player_b) {
   ball.setPosition(screen_w / 2, 100);
   ball.setVelocity(0, 0);
   ball.setCollisionCategory(2);
+
+  player_a.body.setPosition(screen_w / 2 - 500, 600);
+  player_b.body.setPosition(screen_w / 2 + 500, 600);
 }
