@@ -1,6 +1,10 @@
 import {screen_w, screen_h} from '@/config';
 import {default as Player} from '@/scenes/player';
+
+import {Population} from '@/Network/genetics.js';
 // import screen_h from '@/config';
+
+const pop_size = 200;
 
 export default class Game extends Phaser.Scene {
   /**
@@ -125,7 +129,7 @@ export default class Game extends Phaser.Scene {
     this.matter.world.on('collisionstart', function(event) {
       var pairs = event.pairs;
 
-      for (var i = 0; i < pairs.length; i++) {
+      for (let i = 0; i < pairs.length; i++) {
         var a = pairs[i].bodyA;
         var b = pairs[i].bodyB;
 
@@ -141,6 +145,8 @@ export default class Game extends Phaser.Scene {
         }
       }
     });
+
+    this.population = new Population(pop_size);
   }
 
   /**

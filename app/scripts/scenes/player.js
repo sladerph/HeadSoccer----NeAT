@@ -1,3 +1,8 @@
+// import {default as Network} from '@/Network/NEAT.js';
+//
+// const nb_inputs  = 5;
+// const nb_outputs = 3;
+
 export default function Player(x, y, id, parent) {
   this.id     = id;
   this.parent = parent;
@@ -31,7 +36,7 @@ export default function Player(x, y, id, parent) {
 
   this.foot_collider = [2];
 
-  this.foot.setCollidesWith(this.foot_collider);
+  this.foot.setCollidesWith([0]);
   // this.foot.setCollidesWith(0);
 
   this.foot.setVisible(false);
@@ -45,13 +50,14 @@ export default function Player(x, y, id, parent) {
 
   this.body.setVelocity(0, 0);
 
+  // this.brain = new Network(nb_inputs, nb_outputs, false);
+
   this.update = function() {
     this.body.setAngle(0);
     this.body.body.angularVelocity = 0;
     this.body.body.angularSpeed    = 0;
 
     if (!this.shooting) {
-      this.foot.setAngle(90);
       this.foot.body.angularVelocity = 0;
       this.foot.body.angularSpeed = 0;
       this.foot.x = this.body.x;
@@ -62,9 +68,8 @@ export default function Player(x, y, id, parent) {
         this.foot.y = this.body.y;
         // this.foot.body.position.y = this.body.body.position.y;
       }
-
-      this.foot.setAngle(90);
     }
+    this.foot.setAngle(90);
 
     // window['console'].log(this.foot.body.collisionFilter.category);
   };
